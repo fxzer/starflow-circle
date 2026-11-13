@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#050507" />
+    <meta name="description" content="StarFlow (@star_flow_ai) — interactive kinetic circle playground. Drag, squeeze, shatter, double-tap." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="StarFlow ✦" />
+    <meta property="og:description" content="Building AI tools & x-focus. Drag, squeeze, or double-tap the circle." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@star_flow_ai" />
+    <title>StarFlow ✦</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas class="bg-canvas" aria-hidden="true"></canvas>
+    <canvas class="fx-canvas" aria-hidden="true"></canvas>
+
+    <!-- Arcade HUD (hidden until double-tap) -->
+    <div class="arcade-hud" aria-live="polite" hidden>
+      <div class="hud-pill">
+        <span class="hud-timer">:15</span>
+        <span class="hud-divider">/</span>
+        <span class="hud-score">0</span>
+      </div>
+      <div class="hud-combo" hidden>x1</div>
+    </div>
+
+    <!-- Floating "+pts" bursts -->
+    <div class="burst-layer" aria-hidden="true"></div>
+
+    <!-- Main Kinetic Circle Stage -->
+    <main class="stage" aria-label="StarFlow interactive circle">
+      <div
+        class="ring-body"
+        role="img"
+        aria-label="StarFlow builds AI tools and x-focus. Drag, squeeze against an edge, or double-tap to play."
+      >
+        <canvas class="ring-canvas"></canvas>
+        <div class="ring-hit-target" aria-hidden="true"></div>
+      </div>
+    </main>
+
+    <!-- End-of-Round Arcade Card -->
+    <section
+      class="arcade-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="arcade-result-title"
+      hidden
+    >
+      <div class="arcade-panel">
+        <div class="arcade-badge">15s signal filter</div>
+        <h2 id="arcade-result-title" class="arcade-score-line">
+          <span class="arcade-final-score">0</span>
+          <span class="arcade-final-unit">pts</span>
+        </h2>
+        <p class="arcade-rank-line">
+          <span class="arcade-rank">SIGNAL INITIATE</span>
+          <span class="arcade-stats">0 hits · max x1</span>
+        </p>
+
+        <div class="leaderboard-box">
+          <div class="leaderboard-head">
+            <span>leaderboard</span>
+            <span>pts</span>
+          </div>
+          <ol class="leaderboard-list"></ol>
+          <form class="leaderboard-form" hidden novalidate>
+            <label>sign with 3 initials</label>
+            <div class="initials-row">
+              <div class="initials-group" role="group" aria-label="Three initials">
+                <input maxlength="1" aria-label="First initial" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+                <input maxlength="1" aria-label="Second initial" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+                <input maxlength="1" aria-label="Third initial" autocomplete="off" autocapitalize="characters" spellcheck="false" />
+              </div>
+              <button type="submit" class="btn-sign">sign</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="arcade-actions">
+          <button type="button" class="btn-primary btn-replay">play again</button>
+          <button type="button" class="btn-ghost btn-share">copy score</button>
+        </div>
+        <button type="button" class="btn-done">done</button>
+
+        <footer class="arcade-credit">
+          crafted by <a href="https://x.com/star_flow_ai" target="_blank" rel="noopener noreferrer">@star_flow_ai</a>
+          <span>·</span>
+          <a href="https://x.com/star_flow_ai" target="_blank" rel="noopener noreferrer">x-focus ↗</a>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Hidden Tweaks Panel (?tweaks or press T) -->
+    <aside class="tweaks-panel" hidden aria-label="Circle physics tweaks">
+      <div class="tweaks-head">
+        <span>lab tweaks</span>
+        <button type="button" class="tweaks-close" aria-label="Close tweaks">×</button>
+      </div>
+      <label class="tweak-field">
+        <span>ring text</span>
+        <input type="text" data-tweak="text" maxlength="120" />
+      </label>
+      <label class="tweak-field">
+        <span>spin speed <output data-tweak-out="spinSpeed"></output></span>
+        <input type="range" data-tweak="spinSpeed" min="-3" max="3" step="0.1" />
+      </label>
+      <label class="tweak-field">
+        <span>bounce <output data-tweak-out="bounce"></output></span>
+        <input type="range" data-tweak="bounce" min="0.5" max="0.99" step="0.01" />
+      </label>
+      <label class="tweak-field">
+        <span>gravity <output data-tweak-out="gravity"></output></span>
+        <input type="range" data-tweak="gravity" min="0" max="0.002" step="0.0001" />
+      </label>
+      <div class="tweaks-actions">
+        <button type="button" class="tweak-theme">next theme</button>
+        <button type="button" class="tweak-reset">reset</button>
+      </div>
+    </aside>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
